@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>LHTLab文献追踪系统</title>
+    <link rel="stylesheet" type="text/css" href="iview.css">
+    <script type="text/javascript" src="vue.min.js"></script>
+    <script type="text/javascript" src="iview.min.js"></script>
+</head>
+<body>
+<div id="app">
+    <i-Menu mode="horizontal" theme="primary" active-name="ICML" @on-select="browse">
+        <Menu-Item name="home">
+            <Icon type="home"></Icon>
+            LHTLab-文献追踪系统
+        </Menu-Item>
+        <Menu-Item name="arXiv">
+            arXiv
+        </Menu-Item>
+        <Menu-Item name="CVPR">
+            CVPR
+        </Menu-Item>
+        <Menu-Item name="ICCV">
+            ICCV
+        </Menu-Item>
+        <Menu-Item name="NIPS">
+            NIPS
+        </Menu-Item>
+        <Menu-Item name="ICML">
+            ICML
+        </Menu-Item>
+        <Menu-Item name="ICLR">
+            ICLR
+        </Menu-Item>
+    </i-Menu>
+    <Card>
+        <p slot="title">NIPS论文检索</p>
+        <p>输入年份:<Input-Number :max="2018" :min="2017" v-model="selectYear"></Input-Number></p>
+        <i-button type="primary" @click="search">搜索</i-button>
+    </Card>
+    <Card><p>当前正在展示ICML<%=year%>的论文，共<%=data.length%>篇如下:</p></Card>
+    <Collapse v-model="value1">
+        <%for(var i = 0; i < data.length; i++){%>
+            <Panel name="<%=i%>">
+                <b><%=data[i]['title']%></b>
+                <p slot="content">
+                    <Tag color="blue">Authors</Tag> <%=data[i]['authors']%>
+                    <br>
+                    <Tag color="orange">Abstract</Tag><%=data[i]['abstract']%>
+                    <br>
+                    <Tag color="green">Date</Tag><%=data[i]['year']%>年<%=data[i]['month']%>月<%=data[i]['date']%>日
+                    <br>
+                    <Tag color="red">URL</Tag><%=data[i]['url']%>
+                </p>
+            </Panel>
+        <%}%>
+    </Collapse>
+</div>
+<script>
+    new Vue({
+        el: '#app',
+        data: {
+            value1:0,
+            selectYear:2017,
+        },
+        methods: {
+            show: function () {
+                this.visible = true;
+            },
+            browse(name){
+                window.location.href='/'+name;
+            },
+            search(){
+                window.location.href='/'+'ICML?year=' + this.selectYear.toString();
+            }
+        }
+    })
+</script>
+</body>
+</html>

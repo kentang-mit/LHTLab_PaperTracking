@@ -1,0 +1,48 @@
+/home/ubuntu/.local/lib/python2.7/site-packages/selenium/webdriver/phantomjs/webdriver.py:49: UserWarning: Selenium support for PhantomJS has been deprecated, please use headless versions of Chrome or Firefox instead
+  warnings.warn('Selenium support for PhantomJS has been deprecated, please use headless '
+2018-04-05 17:45:17 [scrapy.utils.log] INFO: Scrapy 1.5.0 started (bot: iclr)
+2018-04-05 17:45:17 [scrapy.utils.log] INFO: Versions: lxml 4.2.1.0, libxml2 2.9.3, cssselect 1.0.3, parsel 1.4.0, w3lib 1.19.0, Twisted 17.9.0, Python 2.7.12 (default, Dec  4 2017, 14:50:18) - [GCC 5.4.0 20160609], pyOpenSSL 17.5.0 (OpenSSL 1.0.2g  1 Mar 2016), cryptography 2.2.2, Platform Linux-4.11.12-pi64+-aarch64-with-Ubuntu-16.04-xenial
+2018-04-05 17:45:17 [scrapy.crawler] INFO: Overridden settings: {'NEWSPIDER_MODULE': 'iclr.spiders', 'SPIDER_MODULES': ['iclr.spiders'], 'ROBOTSTXT_OBEY': True, 'BOT_NAME': 'iclr'}
+2018-04-05 17:45:17 [scrapy.middleware] INFO: Enabled extensions:
+['scrapy.extensions.memusage.MemoryUsage',
+ 'scrapy.extensions.logstats.LogStats',
+ 'scrapy.extensions.telnet.TelnetConsole',
+ 'scrapy.extensions.corestats.CoreStats']
+2018-04-05 17:45:17 [scrapy.middleware] INFO: Enabled downloader middlewares:
+['scrapy.downloadermiddlewares.robotstxt.RobotsTxtMiddleware',
+ 'scrapy.downloadermiddlewares.httpauth.HttpAuthMiddleware',
+ 'scrapy.downloadermiddlewares.downloadtimeout.DownloadTimeoutMiddleware',
+ 'scrapy.downloadermiddlewares.defaultheaders.DefaultHeadersMiddleware',
+ 'scrapy.downloadermiddlewares.useragent.UserAgentMiddleware',
+ 'scrapy.downloadermiddlewares.retry.RetryMiddleware',
+ 'scrapy.downloadermiddlewares.redirect.MetaRefreshMiddleware',
+ 'scrapy.downloadermiddlewares.httpcompression.HttpCompressionMiddleware',
+ 'scrapy.downloadermiddlewares.redirect.RedirectMiddleware',
+ 'scrapy.downloadermiddlewares.cookies.CookiesMiddleware',
+ 'scrapy.downloadermiddlewares.httpproxy.HttpProxyMiddleware',
+ 'scrapy.downloadermiddlewares.stats.DownloaderStats']
+2018-04-05 17:45:17 [scrapy.middleware] INFO: Enabled spider middlewares:
+['scrapy.spidermiddlewares.httperror.HttpErrorMiddleware',
+ 'scrapy.spidermiddlewares.offsite.OffsiteMiddleware',
+ 'scrapy.spidermiddlewares.referer.RefererMiddleware',
+ 'scrapy.spidermiddlewares.urllength.UrlLengthMiddleware',
+ 'scrapy.spidermiddlewares.depth.DepthMiddleware']
+2018-04-05 17:45:17 [scrapy.middleware] INFO: Enabled item pipelines:
+['iclr.pipelines.MySQLPipeline']
+2018-04-05 17:45:17 [scrapy.core.engine] INFO: Spider opened
+2018-04-05 17:45:17 [scrapy.extensions.logstats] INFO: Crawled 0 pages (at 0 pages/min), scraped 0 items (at 0 items/min)
+2018-04-05 17:45:17 [py.warnings] WARNING: /usr/local/lib/python2.7/dist-packages/scrapy/spidermiddlewares/offsite.py:59: URLWarning: allowed_domains accepts only domains, not URLs. Ignoring URL entry https://openreview.net/ in allowed_domains.
+  warnings.warn("allowed_domains accepts only domains, not URLs. Ignoring URL entry %s in allowed_domains." % domain, URLWarning)
+
+2018-04-05 17:45:17 [scrapy.extensions.telnet] DEBUG: Telnet console listening on 127.0.0.1:6023
+2018-04-05 17:45:17 [scrapy.core.engine] INFO: Closing spider (finished)
+2018-04-05 17:45:17 [scrapy.statscollectors] INFO: Dumping Scrapy stats:
+{'finish_reason': 'finished',
+ 'finish_time': datetime.datetime(2018, 4, 5, 9, 45, 17, 853248),
+ 'log_count/DEBUG': 1,
+ 'log_count/INFO': 7,
+ 'log_count/WARNING': 1,
+ 'memusage/max': 53411840,
+ 'memusage/startup': 53411840,
+ 'start_time': datetime.datetime(2018, 4, 5, 9, 45, 17, 827685)}
+2018-04-05 17:45:17 [scrapy.core.engine] INFO: Spider closed (finished)

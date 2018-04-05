@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>LHTLab文献追踪系统</title>
+    <link rel="stylesheet" type="text/css" href="iview.css">
+    <script type="text/javascript" src="vue.min.js"></script>
+    <script type="text/javascript" src="iview.min.js"></script>
+</head>
+<body>
+<div id="app">
+    <i-Menu mode="horizontal" theme="primary" active-name="home" @on-select="browse">
+        <Menu-Item name="home">
+            <Icon type="home"></Icon>
+            LHTLab-文献追踪系统
+        </Menu-Item>
+        <Menu-Item name="arXiv">
+            arXiv
+        </Menu-Item>
+        <Menu-Item name="CVPR">
+            CVPR
+        </Menu-Item>
+        <Menu-Item name="ICCV">
+            ICCV
+        </Menu-Item>
+        <Menu-Item name="NIPS">
+            NIPS
+        </Menu-Item>
+        <Menu-Item name="ICML">
+            ICML
+        </Menu-Item>
+        <Menu-Item name="ICLR">
+            ICLR
+        </Menu-Item>
+    </i-Menu>
+    <Card>
+        <p slot="title">当前系统概况</p>
+        <p>CVPR文章数: <%=data[1]['count']%></p>
+        <p>ICCV文章数: <%=data[2]['count']%></p>
+        <p>NIPS文章数: <%=data[5]['count']%></p>
+	    <p>ICML文章数: <%=data[4]['count']%></p>
+        <p>ICLR文章数: <%=data[3]['count']%></p>
+	    <p>arXiv文章数: <%=data[0]['count']%></p>
+        <p>目前系统只展示Person Re-ID方向文章。</p>
+    </Card>
+    <Alert show-icon>
+        提示
+        <Icon type="ios-lightbulb-outline" slot="icon"></Icon>
+        <template slot="desc">若有任何问题，欢迎联系 kentang@sjtu.edu.cn 。</template>
+    </Alert>
+</div>
+<script>
+    new Vue({
+        el: '#app',
+        data: {
+            visible: false
+        },
+        methods: {
+            show: function () {
+                this.visible = true;
+            },
+            browse(name){
+                window.location.href='/'+name;
+            }
+        }
+    })
+  </script>
+</body>
+</html>
