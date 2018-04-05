@@ -1,6 +1,8 @@
 # LHTLab_PaperTracking
 A paper tracking system which collects paper from CVPR,ICCV,ICML,ICLR,NIPS and arXiv and displays the results on web.
 
+![lhtlab-papertracking](lhtlab-papertracking.png)
+
 Dependencies:
 Python 2.7 and Scrapy 1.5.0(for crawlers), MySQL 5.7(for data storage), NodeJS 8.11.0(for front-end display)
 
