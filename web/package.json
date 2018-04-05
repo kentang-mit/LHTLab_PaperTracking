@@ -1,0 +1,30 @@
+{
+  "name": "lhtlab_papertracking",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "dependencies": {
+    "axios": "^0.18.0",
+    "koa-bodyparser": "^4.2.0",
+    "koa-ejs": "^4.1.1",
+    "koa-router": "^7.4.0",
+    "koa-static": "^4.0.2",
+    "koa2": "^2.0.0-alpha.7",
+    "mysql": "^2.15.0",
+    "promise.ify": "^0.3.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kentangSJTU/LHTLab_PaperTracking.git"
+  },
+  "author": "Ken Tang",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kentangSJTU/LHTLab_PaperTracking/issues"
+  },
+  "homepage": "https://github.com/kentangSJTU/LHTLab_PaperTracking#readme"
+}
