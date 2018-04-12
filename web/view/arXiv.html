@@ -37,11 +37,12 @@
         <p slot="title">arXiv论文检索</p>
         <p>输入年份:<Input-Number :max="2018" :min="2017" v-model="selectYear"></Input-Number></p>
         <p>输入月份:<Input-Number :max="12" :min="1" v-model="selectMonth"></Input-Number></p>
+        <p>选择方向:<Radio-Group v-model="branch"><Radio label="PRID"><span>Re-ID</span></Radio><Radio label="GAN"><span>GAN</span></Radio></Radio-Group></p>
         <i-button type="primary" @click="search">搜索</i-button>
     </Card>
-    <Card><p>当前正在展示<%=year%>年<%=month%>月的论文，共<%=data.length%>篇如下:</p></Card>
+    <Card><p>当前正在展示<%=year%>年<%=month%>月<%=branch%>方向的论文，共<%=data.length%>篇如下:</p></Card>
     <Collapse v-model="value1">
-        <%for(var i = 0; i < data.length; i++){%>
+        <%for(var i = start_id; i < end_id; i++){%>
             <Panel name="<%=i%>">
                 <b><%=data[i]['title']%></b>
                 <p slot="content">
@@ -56,6 +57,7 @@
             </Panel>
         <%}%>
     </Collapse>
+    <Page :current="<%=start_id/10+1%>" :total="<%=data.length%>" @on-change="changePage"></Page>
 </div>
 <script>
     new Vue({
@@ -63,17 +65,25 @@
         data: {
             value1:0,
             selectYear:2018,
-            selectMonth:4
+            selectMonth:4,
+            branch: '<%=branch%>'
         },
         methods: {
             show: function () {
                 this.visible = true;
             },
             browse(name){
-                window.location.href='/'+name;
+                if(name === 'home' || name === 'arXiv'){
+                    window.location.href='/'+name;
+                }else{
+                    window.location.href='/conference/'+name;
+                }
+            },
+            changePage(index){
+                window.location.href='/arXiv?year=' + this.selectYear.toString() + '&month=' + this.selectMonth.toString() + '&branch=' + this.branch + '&page=' + index.toString();
             },
             search(){
-                window.location.href='/'+'arXiv?year=' + this.selectYear.toString() + '&month=' + this.selectMonth.toString();
+                window.location.href='/arXiv?year=' + this.selectYear.toString() + '&month=' + this.selectMonth.toString() + '&branch=' + this.branch;
             }
         }
     })

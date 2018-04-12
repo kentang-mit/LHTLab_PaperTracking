@@ -22,6 +22,9 @@ render(app, {
     cache: false,
     debug: false
 });
+sqls = {}
+sqls['PRID'] = '%person%re-id%';
+sqls['GAN'] = '%generative%adversarial%';
 router.get('/', async (ctx)=>{
 	sql = 'SELECT conference,COUNT(*) as count FROM article GROUP BY conference;';
 	const results = await pify(connection.query,connection)(sql);
@@ -42,88 +45,45 @@ router.get('/arXiv', async (ctx)=>{
 		parsed['year'] = 2018;
 		parsed['month'] = 4;
 	}
+    if(parsed['branch'] === undefined){
+        parsed['branch'] = 'PRID';
+    }
+    if(parsed['page'] === undefined){
+        parsed['page'] = 1;
+    }
 	sql = "SELECT a.*,GROUP_CONCAT(au.name) as authors "+
 	"from article as a JOIN author as au JOIN relationship as r "+
 	"WHERE au.id=r.authorid and a.id=r.articleid and conference='arXiv' and a.year="+ parsed['year'].toString() + " and a.month="+parsed['month'].toString()+" "+
-	"and a.abstract like '%person%re-id%' GROUP BY a.id;"
+	"and a.abstract like '"+sqls[parsed['branch']]+"' GROUP BY a.id;"
 	const results = await pify(connection.query,connection)(sql);
 	console.log(results[0][0]);
-    await ctx.render('arXiv', {data:results[0], year:parsed['year'], month:parsed['month'], layout:false});
+    start_id = (parsed['page']-1)*10;
+    end_id = Math.min(parsed['page']*10, results[0].length);
+    await ctx.render('arXiv', {start_id: start_id, end_id: end_id, branch:parsed['branch'], data:results[0], year:parsed['year'], month:parsed['month'], layout:false});
 });
-router.get('/CVPR', async (ctx)=>{
+router.get('/conference/:confname', async (ctx)=>{
+    confname = ctx.params.confname;
 	url = ctx.request.url;
 	url = url.substr(url.indexOf('?')+1);
 	parsed = querystring.parse(url);
 	if(parsed['year'] === undefined){
 		parsed['year'] = 2017;
 	}
+	if(parsed['branch'] === undefined){
+        parsed['branch'] = 'PRID';
+    }
+    if(parsed['page'] === undefined){
+        parsed['page'] = 1;
+    }
 	sql = "SELECT a.*,GROUP_CONCAT(au.name) as authors "+
 	"from article as a JOIN author as au JOIN relationship as r "+
-	"WHERE au.id=r.authorid and a.id=r.articleid and conference='CVPR' and a.year="+ parsed['year'].toString() + " "+
-	"and a.abstract like '%person%re-id%' GROUP BY a.id;"
+	"WHERE au.id=r.authorid and a.id=r.articleid and conference='"+confname+"' and a.year="+ parsed['year'].toString() + " "+
+	"and a.abstract like '"+sqls[parsed['branch']]+"' GROUP BY a.id;"
 	const results = await pify(connection.query,connection)(sql);
 	console.log(results[0][0]);
-    await ctx.render('CVPR', {data:results[0], year:parsed['year'], layout:false});
-});
-router.get('/ICCV', async (ctx)=>{
-	url = ctx.request.url;
-	url = url.substr(url.indexOf('?')+1);
-	parsed = querystring.parse(url);
-	if(parsed['year'] === undefined){
-		parsed['year'] = 2017;
-	}
-	sql = "SELECT a.*,GROUP_CONCAT(au.name) as authors "+
-	"from article as a JOIN author as au JOIN relationship as r "+
-	"WHERE au.id=r.authorid and a.id=r.articleid and conference='ICCV' and a.year="+ parsed['year'].toString() + " "+
-	"and a.abstract like '%person%re-id%' GROUP BY a.id;"
-	const results = await pify(connection.query,connection)(sql);
-	console.log(results[0][0]);
-    await ctx.render('ICCV', {data:results[0], year:parsed['year'], layout:false});
-});
-router.get('/ICML', async (ctx)=>{
-	url = ctx.request.url;
-	url = url.substr(url.indexOf('?')+1);
-	parsed = querystring.parse(url);
-	if(parsed['year'] === undefined){
-		parsed['year'] = 2017;
-	}
-	sql = "SELECT a.*,GROUP_CONCAT(au.name) as authors "+
-	"from article as a JOIN author as au JOIN relationship as r "+
-	"WHERE au.id=r.authorid and a.id=r.articleid and conference='ICML' and a.year="+ parsed['year'].toString() + " "+
-	"and a.abstract like '%person%re-id%' GROUP BY a.id;"
-	const results = await pify(connection.query,connection)(sql);
-	console.log(results[0][0]);
-    await ctx.render('ICML', {data:results[0], year:parsed['year'], layout:false});
-});
-router.get('/NIPS', async (ctx)=>{
-	url = ctx.request.url;
-	url = url.substr(url.indexOf('?')+1);
-	parsed = querystring.parse(url);
-	if(parsed['year'] === undefined){
-		parsed['year'] = 2017;
-	}
-	sql = "SELECT a.*,GROUP_CONCAT(au.name) as authors "+
-	"from article as a JOIN author as au JOIN relationship as r "+
-	"WHERE au.id=r.authorid and a.id=r.articleid and conference='NIPS' and a.year="+ parsed['year'].toString() + " "+
-	"and a.abstract like '%person%re-id%' GROUP BY a.id;"
-	const results = await pify(connection.query,connection)(sql);
-	console.log(results[0][0]);
-    await ctx.render('NIPS', {data:results[0], year:parsed['year'], layout:false});
-});
-router.get('/ICLR', async (ctx)=>{
-	url = ctx.request.url;
-	url = url.substr(url.indexOf('?')+1);
-	parsed = querystring.parse(url);
-	if(parsed['year'] === undefined){
-		parsed['year'] = 2017;
-	}
-	sql = "SELECT a.*,GROUP_CONCAT(au.name) as authors "+
-	"from article as a JOIN author as au JOIN relationship as r "+
-	"WHERE au.id=r.authorid and a.id=r.articleid and conference='ICLR' and a.year="+ parsed['year'].toString() + " "+
-	"and a.abstract like '%person%re-id%' GROUP BY a.id;"
-	const results = await pify(connection.query,connection)(sql);
-	console.log(results[0][0]);
-    await ctx.render('ICLR', {data:results[0], year:parsed['year'], layout:false});
+    start_id = (parsed['page']-1)*10;
+    end_id = Math.min(parsed['page']*10, results[0].length);
+    await ctx.render('conference', {start_id: start_id, end_id: end_id, branch: parsed['branch'], confname: confname, data:results[0], year:parsed['year'], layout:false});
 });
 
 app.use(router.routes());

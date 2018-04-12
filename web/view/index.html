@@ -3,9 +3,9 @@
 <head>
     <meta charset="utf-8">
     <title>LHTLab文献追踪系统</title>
-    <link rel="stylesheet" type="text/css" href="iview.css">
-    <script type="text/javascript" src="vue.min.js"></script>
-    <script type="text/javascript" src="iview.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="/iview.css">
+    <script type="text/javascript" src="/vue.min.js"></script>
+    <script type="text/javascript" src="/iview.min.js"></script>
 </head>
 <body>
 <div id="app">
@@ -41,7 +41,7 @@
 	    <p>ICML文章数: <%=data[4]['count']%></p>
         <p>ICLR文章数: <%=data[3]['count']%></p>
 	    <p>arXiv文章数: <%=data[0]['count']%></p>
-        <p>目前系统只展示Person Re-ID方向文章。</p>
+        <p>目前系统只展示Person Re-ID和GAN方向文章。</p>
     </Card>
     <Alert show-icon>
         提示
@@ -60,7 +60,11 @@
                 this.visible = true;
             },
             browse(name){
-                window.location.href='/'+name;
+                if(name === 'home' || name === 'arXiv'){
+                    window.location.href='/'+name;
+                }else{
+                    window.location.href='/conference/'+name;
+                }
             }
         }
     })
